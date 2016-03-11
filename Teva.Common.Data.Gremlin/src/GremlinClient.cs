@@ -210,6 +210,18 @@ namespace Teva.Common.Data.Gremlin
         {
             return GetBoolean(new GremlinScript().Append_EdgeExists_In(StartVertexID, Name));
         }
+        public bool EdgeExists_Between_Both(string StartVertexID, string EndVertexID, string Name)
+        {
+            return GetBoolean(new GremlinScript().Append_EdgeExists_Between_Both(StartVertexID, EndVertexID, Name));
+        }
+        public bool EdgeExists_Between_Out(string StartVertexID, string EndVertexID, string Name)
+        {
+            return GetBoolean(new GremlinScript().Append_EdgeExists_Between_Out(StartVertexID, EndVertexID, Name));
+        }
+        public bool EdgeExists_Between_In(string StartVertexID, string EndVertexID, string Name)
+        {
+            return GetBoolean(new GremlinScript().Append_EdgeExists_Between_In(StartVertexID, EndVertexID, Name));
+        }
         #endregion
 
         #region CreateEdge

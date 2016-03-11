@@ -305,6 +305,18 @@ namespace Teva.Common.Data.Gremlin
         {
             return Append_GetEdge_In(StartVertexID, EdgeName).Append_HasNext();
         }
+        public GremlinScript Append_EdgeExists_Between_Both(string StartVertexID, string EndVertexID, string EdgeName)
+        {
+            return Append_GetEdge_Both(StartVertexID, EdgeName).Append_FilterBothVertex(EndVertexID).Append_HasNext();
+        }
+        public GremlinScript Append_EdgeExists_Between_Out(string StartVertexID, string EndVertexID, string EdgeName)
+        {
+            return Append_GetEdge_Out(StartVertexID, EdgeName).Append_FilterInVertex(EndVertexID).Append_HasNext();
+        }
+        public GremlinScript Append_EdgeExists_Between_In(string StartVertexID, string EndVertexID, string EdgeName)
+        {
+            return Append_GetEdge_In(StartVertexID, EdgeName).Append_FilterOutVertex(EndVertexID).Append_HasNext();
+        }
         #endregion
 
         #region CreateEdge
@@ -531,6 +543,22 @@ namespace Teva.Common.Data.Gremlin
         public GremlinScript Append_FilterLabel(string Label)
         {
             return Append(".has(T.label,").Append_Parameter(Label).Append(")");
+        }
+        public GremlinScript Append_FilterIsVertex(string ID)
+        {
+            return Append(".is(").Append_GetVertex(ID).Append_Next().Append(")");
+        }
+        public GremlinScript Append_FilterBothVertex(string EndVertexID)
+        {
+            return Append(".filter(").Append("bothV()").Append_FilterIsVertex(EndVertexID).Append(")");
+        }
+        public GremlinScript Append_FilterOutVertex(string EndVertexID)
+        {
+            return Append(".filter(").Append("outV()").Append_FilterIsVertex(EndVertexID).Append(")");
+        }
+        public GremlinScript Append_FilterInVertex(string EndVertexID)
+        {
+            return Append(".filter(").Append("inV()").Append_FilterIsVertex(EndVertexID).Append(")");
         }
         #endregion
 
