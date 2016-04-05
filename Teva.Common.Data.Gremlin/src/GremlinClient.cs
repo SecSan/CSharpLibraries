@@ -151,11 +151,11 @@ namespace Teva.Common.Data.Gremlin
 
         public GraphItems.Vertex CreateVertexAndLabel(string Label, Dictionary<string, List<GraphItems.VertexValue>> Properties)
         {
-            return GetVertex(new GremlinScript().Append_CreateVertexAndLabel(Label, Properties));
+            return GetVertex(new GremlinScript().Append_CreateVertexWithLabel(Label, Properties));
         }
         public Task<GraphItems.Vertex> CreateVertexAndLabelAsync(string Label, Dictionary<string, List<GraphItems.VertexValue>> Properties)
         {
-            return GetVertexAsync(new GremlinScript().Append_CreateVertexAndLabel(Label, Properties));
+            return GetVertexAsync(new GremlinScript().Append_CreateVertexWithLabel(Label, Properties));
         }
         #endregion
 
@@ -232,6 +232,21 @@ namespace Teva.Common.Data.Gremlin
         public Task<GraphItems.Edge> CreateEdgeAsync(string StartVertexID, string EndVertexID, string Name, Dictionary<string, object> Properties = null)
         {
             return GetEdgeAsync(new GremlinScript().Append_CreateEdge(StartVertexID, EndVertexID, Name, Properties));
+        }
+        #endregion
+
+        #region UpdateEdge
+        public void UpdateEdgeOut(string StartVertexID, string EndVertexID, string Name,
+            Dictionary<string, object> Properties, bool RemoveOtherProperties)
+        {
+            Execute(new GremlinScript().Append_UpdateEdgeBetween_Out(StartVertexID, EndVertexID, Name, Properties,
+                RemoveOtherProperties));
+        }
+        public void UpdateEdgeOutAsync(string StartVertexID, string EndVertexID, string Name,
+            Dictionary<string, object> Properties, bool RemoveOtherProperties)
+        {
+            ExecuteAsync(new GremlinScript().Append_UpdateEdgeBetween_Out(StartVertexID, EndVertexID, Name, Properties,
+                RemoveOtherProperties));
         }
         #endregion
 
